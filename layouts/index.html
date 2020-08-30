@@ -5,10 +5,11 @@
     {{- $pages := . -}}
     {{- if .IsHome -}}
     {{- $pages = .Site.RegularPages -}}
+    {{ $paginator := .Paginate (where (where $pages "Params.hidden" "ne" true) "Params.type" "ne" "essay") }}
     {{- else -}}
     {{ $pages = .Pages -}}
-    {{- end -}}
     {{ $paginator := .Paginate (where $pages "Params.hidden" "ne" true) }}
+    {{- end -}}
     {{ range sort .Paginator.Pages }}
     <article>
       <div class="subtitle tags is-6 is-pulled-right">
